@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>My Courses</h2>
+<a href="{% url 'notes:course_create' %}">New Course ➕</a>
+<hr>
+<div class="course-grid">
+    {% for course in courses %}
+    <div class="course-item">
+        <h3><a href="#">{{ course.title }}</a></h3>
+        <p>{{ course.description|truncatewords:10 }}</p>
+        <small>{{ course.created_at|date:"Y/m/d" }}</small>
+        <div>
+            <a href="{% url 'notes:course_edit' course.id %}">Edit ✏️</a>
+            <a href="{% url 'notes:course_delete' course.id %}">Delete 🗑️</a>
+        </div>
+    </div>
+    {% empty %}
+        <p>There is no course yet!</p>
+    {% endfor %}
+</div>
+{% endblock %}
