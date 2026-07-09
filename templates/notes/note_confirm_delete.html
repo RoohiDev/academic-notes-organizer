@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Are sure you want to delete the note "{{ note.title }}"?</h2>
+<p>This note will be deleted from the course "{{ course.title }}"</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+    <a href="{% url 'notes:note_list' course.id %}">Discard</a>
+</form>
+{% endblock %}

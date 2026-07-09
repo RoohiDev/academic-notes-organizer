@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Course
-from .forms import CourseForm
+from .models import Course, Note
+from .forms import CourseForm, NoteForm
 
+
+#Course Views
 @login_required
 def course_list(request):
     courses = Course.objects.filter(user=request.user).order_by('-created_at')
@@ -44,3 +46,50 @@ def course_delete(request, pk):
         messages.success(request, 'Course deleted successfully.')
         return redirect('notes:course_list')
     return render(request, 'notes/course_confirm_delete.html', {'course': course})
+
+
+#Note Views
+@login_required
+def note_list(request, course_id):
+    course = get_object_or_404(Course, pk=course_id, user=request.user)
+    notes = course.notes.all().order_by('-created_at')
+    return render(request, 'notes/note_list.html', {'course': course, 'notes': notes})
+
+@login_required
+def note_create(request, course_id):
+    course = get_object_or_404(Course, pk=course_id, user=request.user)
+    if request.method == 'POST':
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            note = form.save(commit=False)
+            note.course = course
+            note.save()
+            messages.success(request, 'Note created successfully.')
+            return redirect('notes:note_list', course_id=course.id)
+    else:
+        form = NoteForm()
+    return render(request, 'notes/note_form.html', {'form': form, 'course': course, 'title': 'Create new note'})
+
+@login_required
+def note_edit(request, course_id, pk):
+    course = get_object_or_404(Course, pk=course_id, user=request.user)
+    note = get_object_or_404(Note, pk=pk, course=course)
+    if request.method == 'POST':
+        form = NoteForm(request.POST, instance=note)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Note edited successfully.')
+            return redirect('notes:note_list', course_id=course.id)
+    else:
+        form = NoteForm(instance=note)
+    return render(request, 'notes/note_form.html', {'form': form, 'course': course, 'title': 'Edit note'})
+
+@login_required
+def note_delete(request, course_id, pk):
+    course = get_object_or_404(Course, pk=course_id, user=request.user)
+    note = get_object_or_404(Note, pk=pk, course=course)
+    if request.method == 'POST':
+        note.delete()
+        messages.success(request, 'Note deleted successfully.')
+        return redirect('notes:note_list', course_id=course.id)
+    return render(request, 'notes/note_confirm_delete.html', {'course': course, 'note': note})

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Notes for Course: "{{ course.title }}"</h2>
+<a href="{% url 'notes:note_create' course.id %}">➕ New Note</a>
+<a href="{% url 'notes:course_list' %}">Back to course list</a>
+<hr>
+<div class="note-grid">
+    {% for note in notes %}
+        <div class="note-item">
+            <h3>{{ note.title }}</h3>
+            <p>{{ note.content|truncatewords:20 }}</p>
+            <small>{{ note.created_at|date:"Y/m/d" }}</small>
+            <div>
+                <a href="{% url 'notes:note_edit' course.id note.id %}">✏️ Edit</a>
+                <a href="{% url 'notes:note_delete' course.id note.id %}">🗑️ Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>There is no notes for this course yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

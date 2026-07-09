@@ -7,7 +7,7 @@
 <div class="course-grid">
     {% for course in courses %}
     <div class="course-item">
-        <h3><a href="#">{{ course.title }}</a></h3>
+        <h3><a href="{% url 'notes:note_list' course.id %}">{{ course.title }}</a></h3>
         <p>{{ course.description|truncatewords:10 }}</p>
         <small>{{ course.created_at|date:"Y/m/d" }}</small>
         <div>
