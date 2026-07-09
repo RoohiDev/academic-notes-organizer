@@ -36,7 +36,7 @@ def course_edit(request, pk):
             return redirect('notes:course_list')
     else:
         form = CourseForm(instance=course)
-        return render(request, 'notes/course_form.html', {'form': form, 'title': 'Edit course.'})
+    return render(request, 'notes/course_form.html', {'form': form, 'title': 'Edit course.'})
     
 @login_required
 def course_delete(request, pk):
