@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Course, Note
 from .forms import CourseForm, NoteForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 
 #Course Views
@@ -93,3 +95,15 @@ def note_delete(request, course_id, pk):
         messages.success(request, 'Note deleted successfully.')
         return redirect('notes:note_list', course_id=course.id)
     return render(request, 'notes/note_confirm_delete.html', {'course': course, 'note': note})
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, f'User {user.username} created successfully.')
+            return redirect('notes:course_list')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
