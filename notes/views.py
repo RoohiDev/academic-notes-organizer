@@ -22,11 +22,11 @@ def course_create(request):
             course = form.save(commit=False)
             course.user = request.user
             course.save()
-            messages.success(request, 'Course created successfully.')
+            messages.success(request, f'Course "{course.title}" created successfully.')
             return redirect('notes:course_list')
     else:
         form = CourseForm()
-    return render(request, 'notes/course_form.html', {'form': form, 'title': 'Create new course.'})
+    return render(request, 'notes/course_form.html', {'form': form, 'title': 'Create New Course'})
 
 @login_required
 def course_edit(request, pk):
@@ -35,18 +35,19 @@ def course_edit(request, pk):
         form = CourseForm(request.POST, instance=course)
         if form.is_valid():
             form.save()
-            messages.success(request,'Course edited successfully.')
+            messages.success(request, f'Course "{course.title}" updated successfully.')
             return redirect('notes:course_list')
     else:
         form = CourseForm(instance=course)
-    return render(request, 'notes/course_form.html', {'form': form, 'title': 'Edit course.'})
+    return render(request, 'notes/course_form.html', {'form': form, 'title': 'Edit Course'})
     
 @login_required
 def course_delete(request, pk):
     course = get_object_or_404(Course, pk=pk, user=request.user)
     if request.method == 'POST':
+        course_title = course.title
         course.delete()
-        messages.success(request, 'Course deleted successfully.')
+        messages.success(request, f'Course "{course_title}" deleted successfully.')
         return redirect('notes:course_list')
     return render(request, 'notes/course_confirm_delete.html', {'course': course})
 
@@ -67,11 +68,11 @@ def note_create(request, course_id):
             note = form.save(commit=False)
             note.course = course
             note.save()
-            messages.success(request, 'Note created successfully.')
+            messages.success(request, f'Note "{note.title}" created successfully.')
             return redirect('notes:note_list', course_id=course.id)
     else:
         form = NoteForm()
-    return render(request, 'notes/note_form.html', {'form': form, 'course': course, 'title': 'Create new note'})
+    return render(request, 'notes/note_form.html', {'form': form, 'course': course, 'title': 'Create New Note'})
 
 @login_required
 def note_edit(request, course_id, pk):
@@ -81,19 +82,20 @@ def note_edit(request, course_id, pk):
         form = NoteForm(request.POST, instance=note)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Note edited successfully.')
+            messages.success(request, f'Note "{note.title}" updated successfully.')
             return redirect('notes:note_list', course_id=course.id)
     else:
         form = NoteForm(instance=note)
-    return render(request, 'notes/note_form.html', {'form': form, 'course': course, 'title': 'Edit note'})
+    return render(request, 'notes/note_form.html', {'form': form, 'course': course, 'title': 'Edit Note'})
 
 @login_required
 def note_delete(request, course_id, pk):
     course = get_object_or_404(Course, pk=course_id, user=request.user)
     note = get_object_or_404(Note, pk=pk, course=course)
     if request.method == 'POST':
+        note_title = note.title
         note.delete()
-        messages.success(request, 'Note deleted successfully.')
+        messages.success(request, f'Note "{note_title}" deleted successfully.')
         return redirect('notes:note_list', course_id=course.id)
     return render(request, 'notes/note_confirm_delete.html', {'course': course, 'note': note})
 
@@ -103,7 +105,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, f'User {user.username} created successfully.')
+            messages.success(request, f'User "{user.username}" created successfully.')
             return redirect('notes:course_list')
     else:
         form = UserCreationForm()
