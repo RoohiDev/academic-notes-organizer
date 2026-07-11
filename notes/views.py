@@ -5,6 +5,7 @@ from .models import Course, Note
 from .forms import CourseForm, NoteForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.db.models import Q
 
 
 #Course Views
@@ -107,3 +108,15 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+#Search view
+@login_required
+def search_notes(request):
+    query = request.GET.get('q', '')
+    results = []
+    if query:
+        results = Note.objects.filter(
+            Q(title__icontains=query) | Q(content__icontains=query),
+            course__user=request.user
+        ).order_by('-created_at')
+    return render(request, 'notes/search_results.html', {'query': query, 'results': results})

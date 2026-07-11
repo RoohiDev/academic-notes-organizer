@@ -8,15 +8,20 @@
 <body>
     <header>
         <h1>Academic Notes Organizer</h1>
-        {% if user.is_authenticated %}
-        <span>Welcome, {{ user.username }}</span>
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Log Out</button>
-        </form>
-        {% endif %}
+        <div class="header-actions">
+            {% if user.is_authenticated %}
+            <form action="{% url 'notes:search_notes' %}" method="get" class="search-form">
+                <input type="text" name="q" placeholder="Search in notes..." required>
+                <button type="submit">🔍</button>
+            </form>
+            <span>Welcome, {{ user.username }}</span>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Log Out</button>
+            </form>
+            {% endif %}
+        </div>
     </header>
-
     {% if messages %}
     <div class="messages">
         {% for message in messages %}

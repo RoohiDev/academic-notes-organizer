@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Search results for {{ query }}</h2>
+
+{% if results %}
+    <div class="search-results">
+        {% for note in results %}
+        <div class="result-item">
+            <h3><a href="{% url 'notes:note_list' note.course.id %}">{{ note.title }}</a></h3>
+            <p>{{ note.content|truncatewords:30 }}</p>
+            <small>Course: {{ note.course.title }} | {{ note.created_at|date:"Y/m/d" }}</small>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No result for "{{ query }}".</p>
+{% endif %}
+
+<a href="{% url 'notes:course_list' %}">Back to course list</a>
+{% endblock %}
