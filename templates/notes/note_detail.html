@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="note-detail">
+    <h2>{{ note.title }}</h2>
+    <p>
+        <strong>Course:</strong> 
+        <a href="{% url 'notes:note_list' course.id %}">{{ course.title }}</a>
+        <span> | </span>
+        <strong>Created:</strong><span> {{ note.created_at|date:"Y/m/d" }}</span>
+    </p>
+    <hr>
+    <div class="note-content">
+        {{ note.content|linebreaks }}
+    </div>
+    <hr>
+    <div class="note-actions">
+        <a href="{% url 'notes:note_edit' course.id note.id %}">✏️ Edit</a>
+        <a href="{% url 'notes:note_delete' course.id note.id %}">🗑️ Delete</a>
+        <a href="{% url 'notes:note_list' course.id %}">Back to Notes List</a>
+    </div>
+</div>
+{% endblock %}

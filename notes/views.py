@@ -75,6 +75,12 @@ def note_create(request, course_id):
     return render(request, 'notes/note_form.html', {'form': form, 'course': course, 'title': 'Create New Note'})
 
 @login_required
+def note_detail(request, course_id, pk):
+    course = get_object_or_404(Course, pk=course_id, user=request.user)
+    note = get_object_or_404(Note, pk=pk, course=course)
+    return render(request, 'notes/note_detail.html', {'course': course, 'note': note})
+
+@login_required
 def note_edit(request, course_id, pk):
     course = get_object_or_404(Course, pk=course_id, user=request.user)
     note = get_object_or_404(Note, pk=pk, course=course)
