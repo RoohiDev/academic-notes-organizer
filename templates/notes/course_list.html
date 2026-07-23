@@ -1,22 +1,74 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2><i class="fas fa-folder"></i> My Courses</h2>
-<a href="{% url 'notes:course_create' %}"><i class="fas fa-plus"></i> New Course</a>
+<div class="tree-header">
+    <h2><i class="fas fa-folder"></i> My Courses</h2>
+    <a href="{% url 'notes:course_create' %}" class="btn btn-primary"><i class="fas fa-plus"></i> New Course</a>
+</div>
 <hr>
-<div class="course-grid">
+
+<div class="tree-view">
     {% for course in courses %}
-    <div class="course-item">
-        <h3><a href="{% url 'notes:note_list' course.id %}">{{ course.title }}</a></h3>
-        <p>{{ course.description|truncatewords:10 }}</p>
-        <small>{{ course.created_at|date:"Y/m/d" }}</small>
-        <div>
-            <a href="{% url 'notes:course_edit' course.id %}">Edit <i class="fas fa-edit"></i></a>
-            <a href="{% url 'notes:course_delete' course.id %}">Delete <i class="fas fa-trash"></i></a>
+    <details class="course-folder" {% if forloop.first %}open{% endif %}>
+        <summary>
+            <i class="fas fa-folder"></i>
+            <span class="course-title">{{ course.title }}</span>
+            <span class="course-actions">
+                <a href="{% url 'notes:course_edit' course.id %}" title="Edit Course">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'notes:course_delete' course.id %}" title="Delete Course">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </span>
+        </summary>
+
+        <div class="folder-content">
+            {% if course.description %}
+            <div class="course-description">
+                <i class="fas fa-info-circle"></i> {{ course.description }}
+            </div>
+            {% endif %}
+
+            <a href="{% url 'notes:note_create' course.id %}" class="new-note-btn">
+                <i class="fas fa-plus"></i> New Note
+            </a>
+            
+            {% with notes=course.notes.all %}
+                {% if notes %}
+                    {% for note in notes %}
+                    <div class="note-file">
+                        <i class="fas fa-file-alt"></i>
+                        <a href="{% url 'notes:note_detail' course.id note.id %}">
+                            {{ note.title }}
+                        </a>
+                        <span class="note-actions">
+                            <a href="{% url 'notes:note_edit' course.id note.id %}" title="Edit Note">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'notes:note_delete' course.id note.id %}" title="Delete Note">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-folder">
+                        <i class="fas fa-exclamation-triangle"></i> No notes yet.
+                    </div>
+                {% endif %}
+
+                <div class="note-file view-all">
+                    <i class="fas fa-list-ul"></i>
+                    <a href="{% url 'notes:note_list' course.id %}" class="view-all-link">
+                        View All Notes in "{{ course.title }}"
+                    </a>
+                </div>
+            {% endwith %}
         </div>
-    </div>
+    </details>
     {% empty %}
-        <p>No courses created yet.</p>
+        <p><i class="fas fa-exclamation-triangle"></i> No courses created yet.</p>
     {% endfor %}
 </div>
 {% endblock %}
