@@ -1,9 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notes Organizer</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -12,7 +15,7 @@
             {% if user.is_authenticated %}
             <form action="{% url 'notes:search_notes' %}" method="get" class="search-form">
                 <input type="text" name="q" placeholder="Search in notes..." required>
-                <button type="submit">🔍</button>
+                <button type="submit"><i class="fas fa-search"></i></button>
             </form>
             <span>Welcome, {{ user.username }}</span>
             <form action="{% url 'logout' %}" method="post">

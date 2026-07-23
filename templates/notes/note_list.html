@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Notes for the course: "{{ course.title }}"</h2>
-<a href="{% url 'notes:note_create' course.id %}">➕ New Note</a>
-<a href="{% url 'notes:course_list' %}">Back to course list</a>
+<h2><i class="fas fa-file-alt"></i> Notes for the course: "{{ course.title }}"</h2>
+<a href="{% url 'notes:note_create' course.id %}"><i class="fas fa-plus"></i> New Note</a>
+<a href="{% url 'notes:course_list' %}"><i class="fas fa-arrow-left"></i> Back to course list</a>
 <hr>
 <div class="note-grid">
     {% for note in notes %}
@@ -12,8 +12,8 @@
             <p>{{ note.content|truncatewords:20 }}</p>
             <small>{{ note.created_at|date:"Y/m/d" }}</small>
             <div>
-                <a href="{% url 'notes:note_edit' course.id note.id %}">✏️ Edit</a>
-                <a href="{% url 'notes:note_delete' course.id note.id %}">🗑️ Delete</a>
+                <a href="{% url 'notes:note_edit' course.id note.id %}">Edit <i class="fas fa-edit"></i></a>
+                <a href="{% url 'notes:note_delete' course.id note.id %}">Delete <i class="fas fa-trash"></i></a>
             </div>
         </div>
     {% empty %}

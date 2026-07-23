@@ -15,9 +15,9 @@
     </div>
     <hr>
     <div class="note-actions">
-        <a href="{% url 'notes:note_edit' course.id note.id %}">✏️ Edit</a>
-        <a href="{% url 'notes:note_delete' course.id note.id %}">🗑️ Delete</a>
-        <a href="{% url 'notes:note_list' course.id %}">Back to Notes List</a>
+        <a href="{% url 'notes:note_edit' course.id note.id %}">Edit <i class="fas fa-edit"></i></a>
+        <a href="{% url 'notes:note_delete' course.id note.id %}">Delete <i class="fas fa-trash"></i></a>
+        <a href="{% url 'notes:note_list' course.id %}"><i class="fas fa-arrow-left"></i> Back to Notes List</a>
     </div>
 </div>
 {% endblock %}

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>My Courses</h2>
-<a href="{% url 'notes:course_create' %}">New Course ➕</a>
+<h2><i class="fas fa-folder"></i> My Courses</h2>
+<a href="{% url 'notes:course_create' %}"><i class="fas fa-plus"></i> New Course</a>
 <hr>
 <div class="course-grid">
     {% for course in courses %}
@@ -11,8 +11,8 @@
         <p>{{ course.description|truncatewords:10 }}</p>
         <small>{{ course.created_at|date:"Y/m/d" }}</small>
         <div>
-            <a href="{% url 'notes:course_edit' course.id %}">Edit ✏️</a>
-            <a href="{% url 'notes:course_delete' course.id %}">Delete 🗑️</a>
+            <a href="{% url 'notes:course_edit' course.id %}">Edit <i class="fas fa-edit"></i></a>
+            <a href="{% url 'notes:course_delete' course.id %}">Delete <i class="fas fa-trash"></i></a>
         </div>
     </div>
     {% empty %}
