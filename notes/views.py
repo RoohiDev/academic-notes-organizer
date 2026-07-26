@@ -69,7 +69,7 @@ def note_create(request, course_id):
             note.course = course
             note.save()
             messages.success(request, f'Note "{note.title}" created successfully.')
-            return redirect('notes:note_list', course_id=course.id)
+            return redirect('notes:course_list')
     else:
         form = NoteForm()
     return render(request, 'notes/note_form.html', {'form': form, 'course': course, 'title': 'Create New Note'})
@@ -89,7 +89,7 @@ def note_edit(request, course_id, pk):
         if form.is_valid():
             form.save()
             messages.success(request, f'Note "{note.title}" updated successfully.')
-            return redirect('notes:note_list', course_id=course.id)
+            return redirect('notes:course_list')
     else:
         form = NoteForm(instance=note)
     return render(request, 'notes/note_form.html', {'form': form, 'course': course, 'title': 'Edit Note'})
@@ -102,7 +102,7 @@ def note_delete(request, course_id, pk):
         note_title = note.title
         note.delete()
         messages.success(request, f'Note "{note_title}" deleted successfully.')
-        return redirect('notes:note_list', course_id=course.id)
+        return redirect('notes:course_list')
     return render(request, 'notes/note_confirm_delete.html', {'course': course, 'note': note})
 
 def signup(request):
