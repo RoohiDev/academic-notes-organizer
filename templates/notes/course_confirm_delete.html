@@ -3,6 +3,7 @@
 {% block content %}
 <div class="confirm-delete">
     <h2>Are you sure you want to delete the course "{{ course.title }}"?</h2>
+    <p>This action cannot be undone!</p>
     <form method="post">
         {% csrf_token %}
         <div class="form-actions">
