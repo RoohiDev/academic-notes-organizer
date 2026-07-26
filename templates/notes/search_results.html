@@ -14,8 +14,8 @@
         {% endfor %}
     </div>
 {% else %}
-    <p>No result for "{{ query }}".</p>
+    <p class="no-result-message">No result for "{{ query }}".</p>
 {% endif %}
 
-<a href="{% url 'notes:course_list' %}"><i class="fas fa-arrow-left"></i> Back to course list</a>
+<a href="{% url 'notes:course_list' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to course list</a>
 {% endblock %}

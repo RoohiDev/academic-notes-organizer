@@ -5,7 +5,10 @@
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save</button>
-    <a href="{% url 'notes:course_list' %}">Discard</a>
+
+    <div class="form-actions">
+        <button type="submit" class="btn-submit">Save</button>
+        <a href="{% url 'notes:course_list' %}" class="btn-discard">Discard</a>
+    </div>
 </form>
 {% endblock %}

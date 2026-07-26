@@ -14,15 +14,16 @@
         <div class="header-actions">
             {% if user.is_authenticated %}
             <form action="{% url 'notes:search_notes' %}" method="get" class="search-form">
-                <input type="text" name="q" placeholder="Search in notes..." required>
+                <input type="text" name="q" placeholder="Search in notes..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required>
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
-            <div class="user-profile">
-                <i class="fas fa-user-circle"></i> {{ user.username }}
+            <div class="user-profile-box">
+                <i class="fas fa-user-circle"></i>
+                <span>{{ user.username }}</span>
             </div>
             <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
-                <button type="submit">Log Out</button>
+                <button type="submit" class="logout-btn">Log Out</button>
             </form>
             {% endif %}
         </div>

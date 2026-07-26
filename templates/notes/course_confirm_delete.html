@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Are you sure you want to delete the course "{{ course.title }}"?</h2>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Delete</button>
-    <a href="{% url 'notes:course_list' %}">Discard</a>
-</form>
+<div class="confirm-delete">
+    <h2>Are you sure you want to delete the course "{{ course.title }}"?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-actions">
+            <button type="submit" class="btn-danger">Delete</button>
+            <a href="{% url 'notes:course_list' %}" class="btn-cancel">Discard</a>
+        </div>
+    </form>
+</div>
 {% endblock %}
