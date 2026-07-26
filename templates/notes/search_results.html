@@ -9,7 +9,7 @@
         <div class="result-item">
             <h3><a href="{% url 'notes:note_detail' note.course.id note.id %}">{{ note.title }}</a></h3>
             <p>{{ note.content|truncatewords:30 }}</p>
-            <small>Course: {{ note.course.title }} | {{ note.created_at|date:"Y/m/d" }}</small>
+            <small>Course: <a href="{% url 'notes:note_list' note.course.id %}">{{ note.course.title }}</a> | {{ note.created_at|date:"Y/m/d" }}</small>
         </div>
         {% endfor %}
     </div>
