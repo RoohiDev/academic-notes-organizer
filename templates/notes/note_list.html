@@ -10,7 +10,12 @@
 <div class="note-grid">
     {% for note in notes %}
         <div class="note-item">
-            <h3><a href="{% url 'notes:note_detail' course.id note.id %}">{{ note.title }}</a></h3>
+            <h3>
+                <a href="{% url 'notes:note_detail' course.id note.id %}">{{ note.title }}</a>
+                {% if note.attachment %}
+                    <i class="fas fa-paperclip" style="font-size: 14px; color: #6c7a8a; margin-left: 6px;" title="This note has an attachment"></i>
+                {% endif %}
+            </h3>
             <p>{{ note.content|truncatewords:20 }}</p>
             <small>{{ note.created_at|date:"Y/m/d" }}</small>
             <div class="note-actions">
