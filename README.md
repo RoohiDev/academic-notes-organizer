@@ -95,7 +95,7 @@ python manage.py test notes
 
 **Expected Output:**
 ```text
-Ran 21 tests in X.XXXs
+Ran 27 tests in X.XXXs
 
 OK
 ```
