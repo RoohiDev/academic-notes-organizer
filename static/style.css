@@ -904,19 +904,19 @@ form .btn-discard:hover {
     text-decoration: underline;
 }
 
-.auth-container .helptext,
-.auth-container .errorlist {
+.helptext,
+.errorlist {
     font-size: 13px;
     display: block;
     margin: 4px 0;
     font-weight: 400;
 }
 
-.auth-container .helptext {
+.helptext {
     color: #676767;
 }
 
-.auth-container .errorlist {
+.errorlist {
     list-style: none;
     color: #c0392b;
 }
