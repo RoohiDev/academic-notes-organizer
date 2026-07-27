@@ -717,6 +717,7 @@ form .btn-discard:hover {
 
 .back-link {
     display: inline-flex;
+    margin-top: 8px;
     align-items: center;
     gap: 8px;
     background: #2e2779;
