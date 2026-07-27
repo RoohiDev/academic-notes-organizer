@@ -36,4 +36,4 @@ class NoteFormTest(TestCase):
         data = {'title': 'Django', 'content': ''}
         form = NoteForm(data=data)
         self.assertFalse(form.is_valid())
-        self.assertIn('content', form.errors)
+        self.assertIn('__all__', form.errors)

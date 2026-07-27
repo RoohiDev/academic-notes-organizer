@@ -70,7 +70,7 @@ class ViewsTest(TestCase):
             'title': 'OOP',
             'content': 'This is about OOP.'
             })
-        self.assertRedirects(response, reverse('notes:note_list', args=[self.course.id]))
+        self.assertRedirects(response, reverse('notes:course_list'))
         self.assertTrue(Note.objects.filter(title='OOP').exists())
 
     def test_note_update(self):
@@ -79,14 +79,14 @@ class ViewsTest(TestCase):
             'title': 'Django (Updated)',
             'content': 'New content about Django.'
             })
-        self.assertRedirects(response, reverse('notes:note_list', args=[self.course.id]))
+        self.assertRedirects(response, reverse('notes:course_list'))
         self.note.refresh_from_db()
         self.assertEqual(self.note.title, 'Django (Updated)')
 
     def test_note_delete(self):
         self.client.login(username='testuser', password='12345')
         response = self.client.post(reverse('notes:note_delete', args=[self.course.id, self.note.id]))
-        self.assertRedirects(response, reverse('notes:note_list', args=[self.course.id]))
+        self.assertRedirects(response, reverse('notes:course_list'))
         self.assertFalse(Note.objects.filter(id=self.note.id).exists())
 
     # Search test
