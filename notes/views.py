@@ -63,7 +63,7 @@ def note_list(request, course_id):
 def note_create(request, course_id):
     course = get_object_or_404(Course, pk=course_id, user=request.user)
     if request.method == 'POST':
-        form = NoteForm(request.POST)
+        form = NoteForm(request.POST, request.FILES)
         if form.is_valid():
             note = form.save(commit=False)
             note.course = course
@@ -85,7 +85,7 @@ def note_edit(request, course_id, pk):
     course = get_object_or_404(Course, pk=course_id, user=request.user)
     note = get_object_or_404(Note, pk=pk, course=course)
     if request.method == 'POST':
-        form = NoteForm(request.POST, instance=note)
+        form = NoteForm(request.POST, request.FILES, instance=note)
         if form.is_valid():
             form.save()
             messages.success(request, f'Note "{note.title}" updated successfully.')

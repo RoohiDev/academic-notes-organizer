@@ -12,6 +12,18 @@
     <hr>
     <div class="note-content">
         {{ note.content|linebreaks }}
+        {% if note.attachment %}
+        <div class="attachment-box">
+            <div class="attachment-info">
+                <i class="fas fa-file"></i>
+                <span class="attachment-name">{{ note.attachment.name|cut:"notes/" }}</span>
+                <span class="attachment-size">{{ note.attachment.size|filesizeformat }}</span>
+            </div>
+            <a href="{{ note.attachment.url }}" target="_blank" class="attachment-download">
+                <i class="fas fa-download"></i><span>Download</span>
+            </a>
+        </div>
+        {% endif %}
     </div>
     <hr>
     <div class="note-actions">

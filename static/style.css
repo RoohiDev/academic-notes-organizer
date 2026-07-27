@@ -989,3 +989,69 @@ form .btn-discard:hover {
         justify-content: center;
     }
 }
+
+/* ATTACHMENT BOX */
+.attachment-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin: 20px 0;
+    transition: 0.2s;
+}
+
+.attachment-box:hover {
+    background: #edf2f7;
+    border-color: #cbd5e0;
+}
+
+.attachment-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.attachment-info i {
+    font-size: 20px;
+    color: #4154d2;
+    flex-shrink: 0;
+}
+
+.attachment-name {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.attachment-size {
+    font-size: 13px;
+    color: #6c7a8a;
+    margin-left: 2px;
+}
+
+.attachment-download {
+    background: #2e2779;
+    color: #ffffff;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+
+.attachment-download:hover {
+    background: #2617b3;
+    color: #ffffff;
+}
